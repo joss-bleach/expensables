@@ -3,8 +3,6 @@ import { redirect } from "next/navigation";
 
 import { auth } from "@clerk/nextjs/server";
 
-import { ProjectDashboardView } from "@/modules/project-dashboard/ui/views/project-dashboard-view";
-
 export const metadata: Metadata = {
   title: "Projects",
 };
@@ -16,7 +14,7 @@ const Page = async () => {
     redirect("/sign-in");
   }
 
-  return <ProjectDashboardView />;
+  return <div>Project</div>;
 };
 
 export default Page;

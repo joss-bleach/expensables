@@ -4,7 +4,6 @@ import { v } from "convex/values";
 export const createProject = mutation({
   args: {
     name: v.string(),
-    userClerkId: v.string(),
     startDate: v.string(),
     endDate: v.string(),
     perDiemAmount: v.number(),
@@ -28,14 +27,18 @@ export const createProject = mutation({
 });
 
 export const getProjects = query({
-  args: {
-    userClerkId: v.string(),
-  },
+  args: {},
   handler: async (ctx, args) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if (identity === null) {
+      throw new Error("Not authenticated");
+    }
+
     return await ctx.db
       .query("projects")
       .withIndex("by_user_clerk_id", (q) =>
-        q.eq("userClerkId", args.userClerkId),
-      );
+        q.eq("userClerkId", identity.subject),
+      )
+      .collect();
   },
 });

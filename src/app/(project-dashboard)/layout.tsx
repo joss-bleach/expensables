@@ -1,12 +1,7 @@
-import { Navbar } from "@/components/navbar";
+import { DashboardLayout } from "@/modules/project-dashboard/ui/layouts/dashboard-layout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div>
-      <Navbar />
-      <main>{children}</main>
-    </div>
-  );
+  return <DashboardLayout>{children}</DashboardLayout>;
 };
 
 export default Layout;
